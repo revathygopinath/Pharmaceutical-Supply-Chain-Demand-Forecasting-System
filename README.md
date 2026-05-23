@@ -1,7 +1,6 @@
 # Pharmaceutical Supply Chain Demand Forecasting System
 
-> Pharmaceutical Supply Chain Demand Forecasting System
-Time Series Forecasting | ARIMA | Prophet | LightGBM | MLflow | Streamlit
+> Time Series Forecasting | LightGBM | XGBoost | MLflow | Streamlit | Python
 
 An end-to-end machine learning pipeline that forecasts weekly pharmaceutical drug demand using five years of historical sales data (2014–2019). The system solves a critical supply chain problem — predicting drug demand 8 weeks ahead to prevent stockouts, reduce excess inventory, and support data-driven procurement decisions.
 
@@ -22,7 +21,13 @@ Pharmaceutical procurement teams face two costly problems:
 - **Stockouts** — running out of stock before the next delivery, causing patient harm and lost revenue
 - **Overstock** — ordering too much based on gut feel, tying up capital in unused inventory
 
-This system replaces reactive procurement with 8-week forward-looking demand forecasts, giving procurement teams advance warning to act before supply chain issues occur.
+This system addresses both by replacing reactive procurement with 8-week forward-looking demand forecasts. The dashboard surfaces rising demand signals in advance, quantifies the financial cost of forecast errors, and lets procurement teams simulate surge/drop scenarios before they happen.
+
+**Where this is implemented in the system:**
+- Rising demand signals → Executive Dashboard forecast alerts (advance stockout warning)
+- Overstock reduction → 72% estimated inventory reduction at 20% safety buffer (Business Impact page)
+- Scenario planning → Demand surge/drop simulator with week-by-week cost impact (Scenario Simulator page)
+- Model health monitoring → Walk-forward retraining simulation flags degraded accuracy before it affects procurement
 
 ---
 
@@ -52,7 +57,7 @@ LightGBM Global wins on all 4 dashboard drugs and on 7 of 8 total drugs.
 
 ---
 
-## Forecast Validation — Jul–Sep 2019
+## Forecast Validation — True Holdout Jul–Sep 2019
 
 | Drug | Forecast MAPE | Status |
 |---|---|---|
@@ -77,14 +82,86 @@ LightGBM Global wins on all 4 dashboard drugs and on 7 of 8 total drugs.
 
 ## Screenshots
 
-<!-- Add your screenshots to docs/screenshots/ and update paths below -->
+### Dashboard
 
+<!-- Save browser screenshots to docs/screenshots/ and update paths below -->
 
-### Model Comparison Heatmap
+| Executive Dashboard | Demand Performance |
+|---|---|
+| ![Executive Dashboard](docs/screenshots/executive_dashboard.png) | ![Demand Performance](docs/screenshots/demand_performance.png) |
+
+| Business Impact | Scenario Simulator |
+|---|---|
+| ![Business Impact](docs/screenshots/business_impact.png) | ![Scenario Simulator](docs/screenshots/scenario_simulator.png) |
+
+### Model Outputs
+
+**Model Comparison Heatmap**
 ![Model Comparison](outputs/plots/09_model_comparison_heatmap.png)
 
-### 8-Week Forecast vs Actual
+**8-Week Forecast vs Real Actuals**
 ![Forecast vs Actual](outputs/plots/11_forecast_vs_actual.png)
+
+### MLflow Experiment Tracking
+
+**All 4 model runs compared side by side — average MAPE and per-drug metrics**
+![MLflow Comparison](docs/screenshots/mlflow_comparison.png)
+
+**LightGBM Global run detail — parameters, per-drug MAPE metrics, artifacts**
+![MLflow Run Detail](docs/screenshots/mlflow_run_detail.png)
+
+**Model artifacts — feature importance JSON and saved model**
+![MLflow Artifacts](docs/screenshots/mlflow_artifacts.png)
+
+---
+
+## MLOps — Experiment Tracking with MLflow
+
+Every training run is automatically logged to MLflow (SQLite backend) with full reproducibility:
+
+```
+Experiment: PharmaCast
+  Run: Naive_Baseline     avg_mape=32.99%
+  Run: XGBoost_Local      avg_mape=9.18%   n_estimators=500, lr=0.03
+  Run: LightGBM_Local     avg_mape=9.96%   n_estimators=500, lr=0.03
+  Run: LightGBM_Global    avg_mape=8.40%   n_estimators=700, lr=0.02
+    Metrics:   mape_Anti-inflammatory_COX=3.1,  mape_Antihistamines=7.1, ...
+    Artifacts: feature_importance.json, lgb_global_model/
+```
+
+**Why MLflow matters here:**
+- Every run is reproducible — same parameters always produce the same results
+- Model comparison is objective — MAPE tracked per drug, not just overall average
+- If the model is retrained on new data, the new run is compared against historical runs to detect performance drift
+- Feature importance is stored as an artifact — auditable explanation of what drives each prediction
+
+**View all runs locally:**
+```bash
+mlflow ui --backend-store-uri sqlite:///.mlflow/pharmacast.db
+```
+Open: `http://localhost:5000`
+
+---
+
+## Walk-Forward Retraining Simulation
+
+Simulates production MLOps by retraining every 4 weeks on expanding data — mimicking exactly how the model would behave as new sales data arrives in production.
+
+```
+Week 200 (Nov 2017): Train → Predict weeks 201-204 → MAPE 11.3% → OK
+Week 204 (Dec 2017): Train → Predict weeks 205-208 → MAPE 15.9% → WATCH
+Week 208 (Dec 2017): Train → Predict weeks 209-212 → MAPE 21.1% → RETRAIN
+Week 212 (Jan 2018): Train → Predict weeks 213-216 → MAPE  4.9% → OK
+...continues to end of data
+```
+
+Runs for all 4 dashboard drugs. Results saved to `outputs/csv/walk_forward_all.csv`.
+
+| Status | MAPE Range | Action |
+|---|---|---|
+| OK | < 12% | Model healthy — continue monitoring |
+| WATCH | 12–20% | Schedule retraining within 2 weeks |
+| RETRAIN | > 20% | Retrain immediately on latest data |
 
 ---
 
@@ -112,11 +189,11 @@ PharmaCast/
 ├── dashboard/
 │   ├── app.py                       # Streamlit entry point
 │   ├── page_modules/                # 5 dashboard pages
-│   │   ├── 01_summary.py            # Overview
-│   │   ├── 02_executive.py          # Executive Dashboard
-│   │   ├── 03_drug_performance.py   # Demand Performance
-│   │   ├── 04_financial.py          # Business Impact
-│   │   └── 05_scenario.py           # Scenario Simulator
+│   │   ├── 01_summary.py
+│   │   ├── 02_executive.py
+│   │   ├── 03_drug_performance.py
+│   │   ├── 04_financial.py
+│   │   └── 05_scenario.py
 │   └── components/
 │       ├── charts.py                # All Plotly interactive charts
 │       └── utils.py                 # CSS theme, KPI cards, cached data loaders
@@ -129,6 +206,9 @@ PharmaCast/
 │
 ├── models/
 │   └── pipeline_artifacts.pkl       # Trained models + metadata
+│
+├── docs/
+│   └── screenshots/                 # Dashboard and MLflow screenshots
 │
 └── .mlflow/
     └── pharmacast.db                # MLflow SQLite experiment tracking
@@ -157,39 +237,6 @@ pip install -r requirements.txt
 python train.py
 ```
 
-This runs a 7-step pipeline and prints everything to terminal:
-
-```
-[1/7] Loading and validating data
-  OK   Loaded 302 weeks x 8 drugs (2014-01-05 to 2019-10-13)
-  OK   All quality checks passed
-
-[5/7] Training models
-  Naive Baseline ...     Done (0.1s)
-  XGBoost Local  ...     Done (12s)   [XGBoost] Antihistamines: MAPE=12.2%
-  LightGBM Local ...     Done (14s)   [LGB_Local] Antihistamines: MAPE=11.5%
-  LightGBM Global ...    Done (11s)   [LGB_Global] Antihistamines: MAPE=7.1%
-
-[6/7] Evaluating models
-  MAPE TABLE (%) -- Test Window ...
-  BEST MODEL PER DRUG:
-    Anti-inflammatory (COX) : LightGBM_Global  MAPE=3.1%  (86% better than Naive)
-    Antihistamines          : LightGBM_Global  MAPE=7.1%  (83% better than Naive)
-
-[7/7] Forecast + Walk-Forward + KPIs + Charts
-  Walk-Forward Retraining Simulation -- All 4 Dashboard Drugs
-    Anti-inflammatory (COX)  : Healthy    avg MAPE=6.1%  trend=Stable
-    Analgesics               : Healthy    avg MAPE=9.4%  trend=Stable
-    Anxiolytics              : Healthy    avg MAPE=7.2%  trend=Improving
-    Antihistamines           : Healthy    avg MAPE=9.2%  trend=Stable
-
-  Model Accuracy:    94.6%
-  Forecast Accuracy: 86.6%
-  Annual Saving:     $132,191
-  Charts exported:   outputs/plots/  (13 charts)
-  CSVs exported:     outputs/csv/    (5 files)
-```
-
 ### 4. Launch the dashboard
 
 ```bash
@@ -210,87 +257,33 @@ Open: `http://localhost:5000`
 
 ## Feature Engineering
 
-17 time series features engineered per drug from raw weekly sales:
+17 time series features per drug:
 
 | Feature | Type | Description |
 |---|---|---|
-| `lag_1`, `lag_4`, `lag_8`, `lag_12` | Lag | Recent demand at 1/4/8/12-week lags |
+| `lag_1`, `lag_4`, `lag_8`, `lag_12` | Lag | Recent demand momentum |
 | `lag_52` | Lag | Same week last year — strongest single feature |
-| `roll_mean_4`, `roll_mean_12` | Rolling | 4-week and 12-week rolling averages |
+| `roll_mean_4`, `roll_mean_12` | Rolling | Short and medium-term demand averages |
 | `roll_std_4` | Rolling | Recent demand volatility |
-| `month_sin`, `month_cos` | Cyclical | Cyclical month encoding — captures seasonality without discontinuity |
+| `month_sin`, `month_cos` | Cyclical | Cyclical month encoding — no discontinuity at year boundary |
 | `month`, `quarter`, `week`, `year` | Calendar | Standard calendar features |
-| `yoy_growth` | Derived | Year-over-year growth rate — second strongest feature |
-| `is_peak_season` | Derived | Drug-specific seasonal flag (spring for Antihistamines, winter for Paracetamol) |
-| `peak_lag52_interaction` | Interaction | lag_52 × peak_season — captures seasonal year-over-year patterns |
+| `yoy_growth` | Derived | Year-over-year growth rate |
+| `is_peak_season` | Derived | Drug-specific seasonal flag |
+| `peak_lag52_interaction` | Interaction | lag_52 × peak season |
 
-Global model adds 4 cross-drug features: `drug_id`, `drug_mean`, `drug_std`, `drug_cv`
+Global model adds: `drug_id`, `drug_mean`, `drug_std`, `drug_cv`
 
 ---
 
 ## Why LightGBM Global Outperforms Local Models
 
-| Aspect | Local Model (1 per drug) | Global Model (1 for all drugs) |
+| Aspect | Local (1 per drug) | Global (1 for all drugs) |
 |---|---|---|
 | Training rows | 244 per drug | 1,952 (8 × 244) |
 | Seasonal learning | Drug-specific only | Shared patterns across all drugs |
 | Volatile drugs | Overfits noise | Stabilised by stable drugs |
 | Deployment | 8 separate models | 1 model artifact |
-| Result | Best local MAPE: 4.6% | Best global MAPE: 3.1% |
-
----
-
-## Walk-Forward Retraining Simulation
-
-Simulates production MLOps — retrains every 4 weeks on growing data, mimicking how the model would behave as new sales data arrives over time.
-
-```
-Week 200 (Nov 2017): Train → Predict weeks 201-204 → MAPE 11.3% → OK
-Week 204 (Dec 2017): Train → Predict weeks 205-208 → MAPE 15.9% → WATCH
-Week 208 (Dec 2017): Train → Predict weeks 209-212 → MAPE 21.1% → RETRAIN
-Week 212 (Jan 2018): Train → Predict weeks 213-216 → MAPE  4.9% → OK
-...continues to end of data
-```
-
-Runs for all 4 dashboard drugs. Results saved to `outputs/csv/walk_forward_all.csv`.
-
-Health thresholds:
-- MAPE < 12% → **OK** — model healthy, continue monitoring
-- MAPE 12–20% → **WATCH** — schedule retraining within 2 weeks
-- MAPE > 20% → **RETRAIN** — retrain immediately on latest data
-
----
-
-## MLOps — Experiment Tracking with MLflow
-
-Every training run is logged to MLflow with:
-
-```
-Experiment: PharmaCast
-  Run: Naive_Baseline      avg_mape=30.6%
-  Run: XGBoost_Local       avg_mape=9.4%   params: n_estimators=500, lr=0.03
-  Run: LightGBM_Local      avg_mape=9.6%   params: n_estimators=500, lr=0.03
-  Run: LightGBM_Global     avg_mape=8.5%   params: n_estimators=700, lr=0.02
-    Artifacts: feature_importance.json, lgb_global_model/
-    Per-drug metrics: mape_Anti-inflammatory_COX=3.1, ...
-```
-
-View all runs:
-```bash
-mlflow ui --backend-store-uri sqlite:///.mlflow/pharmacast.db
-```
-
----
-
-## Data Splits — Chronological Only
-
-Random splitting is never used on time series data. All splits are strictly chronological to prevent data leakage.
-
-```
-Jan 2014 ──────────── Sep 2018 | Sep 2018 ─ Feb 2019 | Feb 2019 ─ Jul 2019 | Jul ─ Sep 2019
-         TRAIN (244 wks)              VAL (21 wks)         TEST (24 wks)      FORECAST (9 wks)
-         Model learning           Hyperparameter ref    Model evaluation    True holdout
-```
+| Best MAPE | 4.6% | **3.1%** |
 
 ---
 
@@ -302,15 +295,21 @@ Projected Annual Saving =
   + Operational Efficiency Gain
 
 Example — Analgesics / Paracetamol:
-  avg_weekly_sales      = 208.63 units
-  naive_mape            = 20.5%
-  best_mape             = 7.0%
-  error_reduction       = 13.5%
-  unit_cost             = $50
-  saving = 208.63 × 0.135 × 50 × 52 = $73,228
+  208.63 units/week × 13.5% error reduction × $50/unit × 52 weeks = $73,228
 
-Total across 4 drugs    = $132,191
+Total across 4 drugs = $132,191
 ```
+
+---
+
+## Data Splits — Chronological Only
+
+```
+Jan 2014 ──────────── Sep 2018 | Sep 2018 ─ Feb 2019 | Feb 2019 ─ Jul 2019 | Jul ─ Sep 2019
+         TRAIN (244 wks)              VAL (21 wks)         TEST (24 wks)      FORECAST (9 wks)
+```
+
+Random splitting is never used — chronological splits prevent data leakage.
 
 ---
 
@@ -320,12 +319,11 @@ Total across 4 drugs    = $132,191
 |---|---|
 | Data processing | Python 3.10, Pandas, NumPy |
 | Machine learning | LightGBM, XGBoost, Scikit-learn |
-| Statistical analysis | Statsmodels (ADF test, seasonal decomposition) |
+| Statistical analysis | Statsmodels (ADF test, decomposition) |
 | Experiment tracking | MLflow (SQLite backend) |
-| Static visualisation | Matplotlib, Seaborn |
+| Static charts | Matplotlib, Seaborn |
 | Interactive charts | Plotly |
 | Dashboard | Streamlit |
-| Version control | Git, GitHub |
 | Deployment | Streamlit Cloud |
 
 ---
@@ -334,9 +332,7 @@ Total across 4 drugs    = $132,191
 
 Source: [Pharma Sales Data — Kaggle](https://www.kaggle.com/datasets/milanzdravkovic/pharma-sales-data)
 
-8 ATC drug categories:
-
-| Code | Drug Name | Demand Type |
+| Code | Drug | Demand Type |
 |---|---|---|
 | M01AB | Anti-inflammatory (COX) | Stable |
 | M01AE | Anti-inflammatory (Propionic) | Stable |
@@ -347,28 +343,9 @@ Source: [Pharma Sales Data — Kaggle](https://www.kaggle.com/datasets/milanzdra
 | R03 | Respiratory / Asthma | Winter seasonal |
 | R06 | Antihistamines | Spring seasonal |
 
-4 drugs selected for dashboard deployment: **M01AB, N02BE, N05B, R06**
-Selection criteria: forecast MAPE < 20% + demand archetype diversity
+Dashboard drugs: **M01AB, N02BE, N05B, R06** — selected for MAPE < 20% and demand archetype diversity.
 
 ---
-
-## Deployment
-
-### Local
-
-```bash
-streamlit run dashboard/app.py
-```
-
-### Streamlit Cloud
-
-1. Push repository to GitHub (include `outputs/csv/` and `models/pipeline_artifacts.pkl`)
-2. Go to [share.streamlit.io](https://share.streamlit.io)
-3. Select repository → set main file path to `dashboard/app.py`
-4. Deploy
-
----
-
 
 ## License
 
