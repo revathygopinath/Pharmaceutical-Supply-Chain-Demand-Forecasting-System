@@ -82,18 +82,6 @@ LightGBM Global wins on all 4 dashboard drugs and on 7 of 8 total drugs.
 
 ## Screenshots
 
-### Dashboard
-
-<!-- Save browser screenshots to docs/screenshots/ and update paths below -->
-
-| Executive Dashboard | Demand Performance |
-|---|---|
-| ![Executive Dashboard](docs/screenshots/executive_dashboard.png) | ![Demand Performance](docs/screenshots/demand_performance.png) |
-
-| Business Impact | Scenario Simulator |
-|---|---|
-| ![Business Impact](docs/screenshots/business_impact.png) | ![Scenario Simulator](docs/screenshots/scenario_simulator.png) |
-
 ### Model Outputs
 
 **Model Comparison Heatmap**
