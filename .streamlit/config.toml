@@ -1,0 +1,13 @@
+[server]
+runOnSave = true
+
+[client]
+showErrorDetails = true
+
+[runner]
+# Disable Streamlit's multi-page app auto-detection
+# This prevents the auto sidebar showing app/summary/executive/etc.
+fastReruns = true
+
+[logger]
+level = "error"
