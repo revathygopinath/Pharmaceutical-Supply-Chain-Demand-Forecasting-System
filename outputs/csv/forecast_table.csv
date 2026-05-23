@@ -1,0 +1,73 @@
+date,drug_name,forecast,model_used
+2019-07-21,Anti-inflammatory (COX),42.7,LightGBM_Global
+2019-07-28,Anti-inflammatory (COX),41.9,LightGBM_Global
+2019-08-04,Anti-inflammatory (COX),43.1,LightGBM_Global
+2019-08-11,Anti-inflammatory (COX),42.6,LightGBM_Global
+2019-08-18,Anti-inflammatory (COX),41.1,LightGBM_Global
+2019-08-25,Anti-inflammatory (COX),40.6,LightGBM_Global
+2019-09-01,Anti-inflammatory (COX),40.3,LightGBM_Global
+2019-09-08,Anti-inflammatory (COX),38.7,LightGBM_Global
+2019-09-15,Anti-inflammatory (COX),37.3,LightGBM_Global
+2019-07-21,Anti-inflammatory (Propionic),30.4,LightGBM_Global
+2019-07-28,Anti-inflammatory (Propionic),30.7,LightGBM_Global
+2019-08-04,Anti-inflammatory (Propionic),30.0,LightGBM_Global
+2019-08-11,Anti-inflammatory (Propionic),29.8,LightGBM_Global
+2019-08-18,Anti-inflammatory (Propionic),29.2,LightGBM_Global
+2019-08-25,Anti-inflammatory (Propionic),28.0,LightGBM_Global
+2019-09-01,Anti-inflammatory (Propionic),28.8,LightGBM_Global
+2019-09-08,Anti-inflammatory (Propionic),29.8,LightGBM_Global
+2019-09-15,Anti-inflammatory (Propionic),29.8,LightGBM_Global
+2019-07-21,Analgesics (Salicylic),28.6,LightGBM_Global
+2019-07-28,Analgesics (Salicylic),27.0,LightGBM_Global
+2019-08-04,Analgesics (Salicylic),26.4,LightGBM_Global
+2019-08-11,Analgesics (Salicylic),26.5,LightGBM_Global
+2019-08-18,Analgesics (Salicylic),26.1,LightGBM_Global
+2019-08-25,Analgesics (Salicylic),27.2,LightGBM_Global
+2019-09-01,Analgesics (Salicylic),28.2,LightGBM_Global
+2019-09-08,Analgesics (Salicylic),26.0,LightGBM_Global
+2019-09-15,Analgesics (Salicylic),26.2,LightGBM_Global
+2019-07-21,Analgesics / Paracetamol,144.8,LightGBM_Global
+2019-07-28,Analgesics / Paracetamol,137.9,LightGBM_Global
+2019-08-04,Analgesics / Paracetamol,134.7,LightGBM_Global
+2019-08-11,Analgesics / Paracetamol,131.9,LightGBM_Global
+2019-08-18,Analgesics / Paracetamol,131.5,LightGBM_Global
+2019-08-25,Analgesics / Paracetamol,132.5,LightGBM_Global
+2019-09-01,Analgesics / Paracetamol,143.6,LightGBM_Global
+2019-09-08,Analgesics / Paracetamol,147.5,LightGBM_Global
+2019-09-15,Analgesics / Paracetamol,164.2,LightGBM_Global
+2019-07-21,Anxiolytics,54.3,LightGBM_Global
+2019-07-28,Anxiolytics,54.1,LightGBM_Global
+2019-08-04,Anxiolytics,53.9,LightGBM_Global
+2019-08-11,Anxiolytics,55.1,LightGBM_Global
+2019-08-18,Anxiolytics,56.0,LightGBM_Global
+2019-08-25,Anxiolytics,59.7,LightGBM_Global
+2019-09-01,Anxiolytics,60.8,LightGBM_Global
+2019-09-08,Anxiolytics,59.2,LightGBM_Global
+2019-09-15,Anxiolytics,55.3,LightGBM_Global
+2019-07-21,Hypnotics and Sedatives,7.3,XGBoost
+2019-07-28,Hypnotics and Sedatives,6.6,XGBoost
+2019-08-04,Hypnotics and Sedatives,6.0,XGBoost
+2019-08-11,Hypnotics and Sedatives,6.1,XGBoost
+2019-08-18,Hypnotics and Sedatives,6.0,XGBoost
+2019-08-25,Hypnotics and Sedatives,6.2,XGBoost
+2019-09-01,Hypnotics and Sedatives,6.2,XGBoost
+2019-09-08,Hypnotics and Sedatives,7.2,XGBoost
+2019-09-15,Hypnotics and Sedatives,6.9,XGBoost
+2019-07-21,Respiratory / Asthma,16.6,LightGBM_Global
+2019-07-28,Respiratory / Asthma,28.0,LightGBM_Global
+2019-08-04,Respiratory / Asthma,34.3,LightGBM_Global
+2019-08-11,Respiratory / Asthma,37.8,LightGBM_Global
+2019-08-18,Respiratory / Asthma,36.7,LightGBM_Global
+2019-08-25,Respiratory / Asthma,32.8,LightGBM_Global
+2019-09-01,Respiratory / Asthma,34.4,LightGBM_Global
+2019-09-08,Respiratory / Asthma,34.6,LightGBM_Global
+2019-09-15,Respiratory / Asthma,34.1,LightGBM_Global
+2019-07-21,Antihistamines,20.8,LightGBM_Global
+2019-07-28,Antihistamines,20.5,LightGBM_Global
+2019-08-04,Antihistamines,20.1,LightGBM_Global
+2019-08-11,Antihistamines,19.4,LightGBM_Global
+2019-08-18,Antihistamines,19.1,LightGBM_Global
+2019-08-25,Antihistamines,19.3,LightGBM_Global
+2019-09-01,Antihistamines,19.9,LightGBM_Global
+2019-09-08,Antihistamines,19.7,LightGBM_Global
+2019-09-15,Antihistamines,19.9,LightGBM_Global

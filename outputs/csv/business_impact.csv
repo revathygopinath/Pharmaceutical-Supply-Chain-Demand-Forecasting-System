@@ -1,0 +1,5 @@
+drug,naive_mape,best_mape,improvement,saving_usd,saving_conv
+Anti-inflammatory (COX),22.8,3.1,19.7,17979.0,17979.0
+Analgesics / Paracetamol,20.5,7.0,13.5,73228.0,73228.0
+Anxiolytics,18.5,4.5,14.0,22474.0,22474.0
+Antihistamines,42.3,7.1,35.2,18510.0,18510.0

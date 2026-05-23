@@ -1,0 +1,9 @@
+drug,model,MAPE,n_weeks,status
+Anti-inflammatory (COX),LightGBM_Global,9.5,9,Good
+Anti-inflammatory (Propionic),LightGBM_Global,38.4,9,Review
+Analgesics (Salicylic),LightGBM_Global,46.2,9,Review
+Analgesics / Paracetamol,LightGBM_Global,15.1,9,Fair
+Anxiolytics,LightGBM_Global,11.5,9,Good
+Hypnotics and Sedatives,XGBoost,75.8,9,Review
+Respiratory / Asthma,LightGBM_Global,44.9,9,Review
+Antihistamines,LightGBM_Global,17.5,9,Fair

@@ -1,0 +1,101 @@
+retrain_date,train_weeks,mape,status,drug
+2017-11-05,200,3.1,OK,Anti-inflammatory (COX)
+2017-12-03,204,4.1,OK,Anti-inflammatory (COX)
+2017-12-31,208,7.0,OK,Anti-inflammatory (COX)
+2018-01-28,212,5.6,OK,Anti-inflammatory (COX)
+2018-02-25,216,11.9,OK,Anti-inflammatory (COX)
+2018-03-25,220,5.1,OK,Anti-inflammatory (COX)
+2018-04-22,224,6.1,OK,Anti-inflammatory (COX)
+2018-05-20,228,0.8,OK,Anti-inflammatory (COX)
+2018-06-17,232,7.0,OK,Anti-inflammatory (COX)
+2018-07-15,236,2.8,OK,Anti-inflammatory (COX)
+2018-08-12,240,7.3,OK,Anti-inflammatory (COX)
+2018-09-09,244,3.1,OK,Anti-inflammatory (COX)
+2018-10-07,248,2.1,OK,Anti-inflammatory (COX)
+2018-11-04,252,3.4,OK,Anti-inflammatory (COX)
+2018-12-02,256,4.2,OK,Anti-inflammatory (COX)
+2018-12-30,260,5.2,OK,Anti-inflammatory (COX)
+2019-01-27,264,5.2,OK,Anti-inflammatory (COX)
+2019-02-24,268,7.5,OK,Anti-inflammatory (COX)
+2019-03-24,272,3.0,OK,Anti-inflammatory (COX)
+2019-04-21,276,9.3,OK,Anti-inflammatory (COX)
+2019-05-19,280,2.2,OK,Anti-inflammatory (COX)
+2019-06-16,284,2.7,OK,Anti-inflammatory (COX)
+2019-07-14,288,3.5,OK,Anti-inflammatory (COX)
+2019-08-11,292,1.7,OK,Anti-inflammatory (COX)
+2019-09-08,296,2.4,OK,Anti-inflammatory (COX)
+2017-11-05,200,16.4,WATCH,Analgesics / Paracetamol
+2017-12-03,204,29.4,RETRAIN,Analgesics / Paracetamol
+2017-12-31,208,17.6,WATCH,Analgesics / Paracetamol
+2018-01-28,212,13.7,WATCH,Analgesics / Paracetamol
+2018-02-25,216,7.5,OK,Analgesics / Paracetamol
+2018-03-25,220,11.9,OK,Analgesics / Paracetamol
+2018-04-22,224,11.4,OK,Analgesics / Paracetamol
+2018-05-20,228,2.7,OK,Analgesics / Paracetamol
+2018-06-17,232,10.7,OK,Analgesics / Paracetamol
+2018-07-15,236,14.5,WATCH,Analgesics / Paracetamol
+2018-08-12,240,12.6,WATCH,Analgesics / Paracetamol
+2018-09-09,244,4.1,OK,Analgesics / Paracetamol
+2018-10-07,248,8.4,OK,Analgesics / Paracetamol
+2018-11-04,252,4.6,OK,Analgesics / Paracetamol
+2018-12-02,256,7.9,OK,Analgesics / Paracetamol
+2018-12-30,260,7.1,OK,Analgesics / Paracetamol
+2019-01-27,264,11.3,OK,Analgesics / Paracetamol
+2019-02-24,268,8.4,OK,Analgesics / Paracetamol
+2019-03-24,272,5.9,OK,Analgesics / Paracetamol
+2019-04-21,276,4.4,OK,Analgesics / Paracetamol
+2019-05-19,280,4.1,OK,Analgesics / Paracetamol
+2019-06-16,284,4.4,OK,Analgesics / Paracetamol
+2019-07-14,288,3.8,OK,Analgesics / Paracetamol
+2019-08-11,292,10.3,OK,Analgesics / Paracetamol
+2019-09-08,296,6.4,OK,Analgesics / Paracetamol
+2017-11-05,200,3.1,OK,Anxiolytics
+2017-12-03,204,22.9,RETRAIN,Anxiolytics
+2017-12-31,208,9.2,OK,Anxiolytics
+2018-01-28,212,5.7,OK,Anxiolytics
+2018-02-25,216,16.0,WATCH,Anxiolytics
+2018-03-25,220,20.2,RETRAIN,Anxiolytics
+2018-04-22,224,21.9,RETRAIN,Anxiolytics
+2018-05-20,228,16.1,WATCH,Anxiolytics
+2018-06-17,232,1.8,OK,Anxiolytics
+2018-07-15,236,8.4,OK,Anxiolytics
+2018-08-12,240,7.7,OK,Anxiolytics
+2018-09-09,244,8.8,OK,Anxiolytics
+2018-10-07,248,7.0,OK,Anxiolytics
+2018-11-04,252,11.8,OK,Anxiolytics
+2018-12-02,256,4.9,OK,Anxiolytics
+2018-12-30,260,3.2,OK,Anxiolytics
+2019-01-27,264,3.6,OK,Anxiolytics
+2019-02-24,268,5.1,OK,Anxiolytics
+2019-03-24,272,4.7,OK,Anxiolytics
+2019-04-21,276,2.4,OK,Anxiolytics
+2019-05-19,280,4.2,OK,Anxiolytics
+2019-06-16,284,5.8,OK,Anxiolytics
+2019-07-14,288,1.8,OK,Anxiolytics
+2019-08-11,292,2.7,OK,Anxiolytics
+2019-09-08,296,3.8,OK,Anxiolytics
+2017-11-05,200,11.3,OK,Antihistamines
+2017-12-03,204,15.9,WATCH,Antihistamines
+2017-12-31,208,21.1,RETRAIN,Antihistamines
+2018-01-28,212,4.9,OK,Antihistamines
+2018-02-25,216,4.6,OK,Antihistamines
+2018-03-25,220,14.4,WATCH,Antihistamines
+2018-04-22,224,21.0,RETRAIN,Antihistamines
+2018-05-20,228,5.5,OK,Antihistamines
+2018-06-17,232,10.3,OK,Antihistamines
+2018-07-15,236,19.9,WATCH,Antihistamines
+2018-08-12,240,32.1,RETRAIN,Antihistamines
+2018-09-09,244,17.6,WATCH,Antihistamines
+2018-10-07,248,11.1,OK,Antihistamines
+2018-11-04,252,6.2,OK,Antihistamines
+2018-12-02,256,10.4,OK,Antihistamines
+2018-12-30,260,12.1,WATCH,Antihistamines
+2019-01-27,264,9.4,OK,Antihistamines
+2019-02-24,268,2.2,OK,Antihistamines
+2019-03-24,272,12.8,WATCH,Antihistamines
+2019-04-21,276,15.7,WATCH,Antihistamines
+2019-05-19,280,15.1,WATCH,Antihistamines
+2019-06-16,284,19.5,WATCH,Antihistamines
+2019-07-14,288,12.6,WATCH,Antihistamines
+2019-08-11,292,4.9,OK,Antihistamines
+2019-09-08,296,7.8,OK,Antihistamines
