@@ -1,6 +1,7 @@
 # Pharmaceutical Supply Chain Demand Forecasting System
 
-> Time Series Forecasting | LightGBM | MLflow | Streamlit | Python
+> Pharmaceutical Supply Chain Demand Forecasting System
+Time Series Forecasting | ARIMA | Prophet | LightGBM | MLflow | Streamlit
 
 An end-to-end machine learning pipeline that forecasts weekly pharmaceutical drug demand using five years of historical sales data (2014–2019). The system solves a critical supply chain problem — predicting drug demand 8 weeks ahead to prevent stockouts, reduce excess inventory, and support data-driven procurement decisions.
 
@@ -51,7 +52,7 @@ LightGBM Global wins on all 4 dashboard drugs and on 7 of 8 total drugs.
 
 ---
 
-## Forecast Validation — True Holdout Jul–Sep 2019
+## Forecast Validation — Jul–Sep 2019
 
 | Drug | Forecast MAPE | Status |
 |---|---|---|
@@ -78,17 +79,6 @@ LightGBM Global wins on all 4 dashboard drugs and on 7 of 8 total drugs.
 
 <!-- Add your screenshots to docs/screenshots/ and update paths below -->
 
-### Executive Dashboard
-![Executive Dashboard](docs/screenshots/executive_dashboard.png)
-
-### Demand Performance
-![Demand Performance](docs/screenshots/demand_performance.png)
-
-### Business Impact
-![Business Impact](docs/screenshots/business_impact.png)
-
-### Scenario Simulator
-![Scenario Simulator](docs/screenshots/scenario_simulator.png)
 
 ### Model Comparison Heatmap
 ![Model Comparison](outputs/plots/09_model_comparison_heatmap.png)
@@ -379,11 +369,6 @@ streamlit run dashboard/app.py
 
 ---
 
-## Author
-
-Built as a portfolio project targeting Data Scientist and ML Engineer roles in pharmaceutical supply chain, healthcare analytics, and operations research.
-
----
 
 ## License
 
