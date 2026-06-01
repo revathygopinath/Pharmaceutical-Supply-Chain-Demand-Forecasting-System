@@ -1,18 +1,15 @@
 # Pharmaceutical Supply Chain Demand Forecasting System
 
+
+🚀 **Live Dashboard:**  
+https://pharmaceutical-supply-chain-demand-forecasting-system-fbtmzjge.streamlit.app/
+
 > Time Series Forecasting | LightGBM | XGBoost | MLflow | Streamlit | Python
 
 An end-to-end machine learning pipeline that forecasts weekly pharmaceutical drug demand using five years of historical sales data (2014–2019). The system solves a critical supply chain problem — predicting drug demand 8 weeks ahead to prevent stockouts, reduce excess inventory, and support data-driven procurement decisions.
 
 ---
 
-## Live Demo
-
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://your-app-url.streamlit.app)
-
-> Replace the URL above after deploying to Streamlit Cloud
-
----
 
 ## Business Problem
 
